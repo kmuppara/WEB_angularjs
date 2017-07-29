@@ -1,10 +1,14 @@
 package com.rbc.controller;
 
+import java.security.Principal;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,27 +27,19 @@ public class WebController {
 	
 	@Autowired
 	WebServiceBO webServiceBO;
-	/*
-	@RequestMapping(value="/home",method=RequestMethod.GET)
-	public ModelAndView home(ModelAndView mv) throws JSONException {
-		System.out.println("Inside web controller...........");
-		Endpoint endpoint = webServiceBO.getRobo();
-		RobotVO robo = (RobotVO)endpoint.getResponseObj();
-		System.out.println(robo.getName()+"==============");
-		RobotVO robot = new RobotVO();
-		robot.setName("Krishna");
-		robot.setPrice(123);
-		robot.setRobotId(1);
-		//JSONObject json = new JSONObject(robot.toString());
-		mv.addObject("robot", robot.toString());
-		//mv.setViewName("Home");
-		return mv;
-	}*/
 	
-	@RequestMapping(value="/getRobo",method=RequestMethod.GET)
+	@RequestMapping(value="/home",method=RequestMethod.GET)
+	public ModelAndView home(ModelAndView mv, Principal principal) {
+		String uName = principal.getName();
+		String viewName = uName.equalsIgnoreCase("userA")?("Home"):("HomeB");
+		mv.setViewName(viewName);
+		return mv;
+	}
+	
+	/*@RequestMapping(value="/getRobo",method=RequestMethod.GET)
 	public RobotVO getRobot() {
 		RobotVO robot = new RobotVO();
-		robot.setName("Krishna");
+		robot.setName("Prasad");
 		robot.setPrice(123);
 		robot.setRobotId(1);
 		return robot;
@@ -71,6 +67,6 @@ public class WebController {
 		return "Home";
 	}
 	
-
+*/
 	
 }

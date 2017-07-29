@@ -1,7 +1,37 @@
- <div>
-         <h2>Welcome {{helloTo.title}} to the world of Tutorialspoint!</h2>
- </div>
-      
-      
-      
-  
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+  <head>
+    <title tiles:fragment="title">RSS Login Page</title>
+	<style type="text/css">
+	.container{
+		  position: relative;
+		  margin: 0 auto;
+		  padding: 20px 20px 20px;
+		  width: 350px;
+		  background-color: #c2c2d6;
+		  margin-top:150px;
+		}
+	</style>
+  </head>
+  <body>
+    <div class="container">
+        <form name="f" th:action="@{/login}" method="post">               
+            <fieldset>
+                <legend>Login Form</legend><br/>
+                <div th:if="${param.error}" class="alert alert-error">    
+                    Invalid username and password.
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success"> 
+                    You have been logged out.
+                </div>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter Username"/> <br/><br/>     
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password"/>  <br/> <br/>   
+                <div align="center">
+                    <button type="submit">SIGN IN</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+  </body>
+</html>

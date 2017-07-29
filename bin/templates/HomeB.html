@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head >
-<title >RSS Home Page</title>
+ <title >RSS Home Page</title>
       <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
       <!-- <script type = "text/javascript" src="js/service.js"></script> -->
 </head>
-   
-  <body ng-app = "myApp" ng-controller = "HelloController" ng-init="btn.a='false'; btn.b='false'; btn.c='false'; btn.d='false'">
+
+  <body ng-app = "myApp" ng-controller = "HelloController" ng-init="btn.a='false'; btn.d='false'">
   <table>
   	<tr >
   		<th colspan="2" width="1350" height="100">
@@ -19,20 +19,15 @@
   	
   	<tr>
   		<td width="200" height="520" style="background-color:lightgray;">
-  			
 		 	 <button ng-click="getABtn()">FIND</button><br/><br/>
-	         <button ng-click="getBBtn()">ADD</button><br/><br/>
-	         <button ng-click="getCBtn()">DELETE</button><br/><br/>
 	         <button ng-click="getAllRobots()">VIEW ALL</button>
-  			
 		</td>
   			
 		<td width="1000" height="520" align="center" valign="top">
 		
 			<div>
 			<p>This is an online Robot shop store. Use left panel buttons <br/>
-			to see the robots which are available for purchase,	add new robots <br/>
-			to the robot store's inventory, and remove robots which have been sold. <br/></p><br/>
+			to find and view all the robots which are available for purchase. <br/></p><br/>
 			
 			</div>
 		
@@ -63,21 +58,6 @@
   				</form>
   			<!-- </div> -->
   			
-  			<!-- <div ng-show = "btn.b" ng-hide="true"> -->
-  				<form ng-show = "btn.b" ng-hide="true" ng-submit="addRobot(robot)">
-  				NAME: <input type = "text" ng-model = "robot.name" placeholder = "Name" required="required"></input>
-  				PRICE: <input type = "text" ng-model = "robot.price" placeholder = "Price" required="required"></input>
-  				<input type = "submit" value = "ADD"/><br/><br/>
-  				</form>
-  			<!-- </div> -->
-  			
-  			<!-- <div ng-show = "btn.c" ng-hide="true"> -->
-  				<form ng-show = "btn.c" ng-hide="true" ng-submit="deleteRobot(robot)">
-  				ROBOT ID: <input type = "text" ng-model = "robot.deleteid" placeholder = "Enter robotid" required="required"></input>
-  				<input type = "submit" value = "DELETE"/><br/><br/>
-  				</form>
-  		<!-- 	</div> -->
-  			
   		</td>	
   	</tr>
   
@@ -90,6 +70,7 @@
 				            $scope.robot = {};
 				            $scope.robots = {};
 				            $scope.allRobots = {};
+				            
 				            $scope.getRobot = function(robot) {
 									                $http({
 									                		method: 'GET',
@@ -98,25 +79,7 @@
 									               		 	})
 										            		.then(sucessGetRobot, errorCallBack);
 									            	};
-							$scope.addRobot = function(robot) {
-										                $http({
-										                		method: 'POST',
-										                		url: "http://localhost:8086/addRobot",
-										                		data: {
-										                				name:robot.name,
-										                				price:robot.price
-										                				}
-										               		 	})
-											            		.then(sucessCallBack, errorCallBack);
-										            };
-							$scope.deleteRobot = function(robot) {
-										                $http({
-										                		method: 'DELETE',
-										                		url: "http://localhost:8086/deleteRobot",
-										                		params: {robotid:robot.deleteid}
-										               		 	})
-											            		.then(sucessCallBack, errorCallBack);
-										            };
+							
 							$scope.getAllRobots = function() {
 										                $http({
 										                		method: 'GET',
@@ -125,10 +88,6 @@
 											            		.then(sucessGetAllBorots, errorCallBack);
 										            };
 				            
-							            var sucessCallBack = function (response){
-							            	alert("The task has been performed successfully..");
-							            	$scope.setAllBtnF();
-							            };
 							            var sucessGetRobot = function (response){
 							            	$scope.setAllBtnF();
 								            $scope.btn.d = true ;
@@ -141,29 +100,18 @@
 							            };
 							            var errorCallBack = function (response){
 							            	alert("Kindly provide the valid inputs..");
-							            	$scope.setAllBtnF();
 							            	$scope.error = response.data;
 							            };
 							$scope.getABtn = function() {
 								$scope.setAllBtnF();
 								$scope.btn.a = true ;
 							};
-							$scope.getBBtn = function() {
-								$scope.setAllBtnF();
-					            $scope.btn.b = true ;
-							};
-							$scope.getCBtn = function() {
-								$scope.setAllBtnF();
-					            $scope.btn.c = true ;
-							};
+							
 							$scope.setAllBtnF = function() {
-								console.log("Inside all False");
 								$scope.btn.a = false ;
-					            $scope.btn.b = false ;
-					            $scope.btn.c = false ;
 					            $scope.btn.d = false ;
+					            $scope.allRobots = {};
 					            $scope.robots = {};
-						        $scope.allRobots = {};
 							};
 							
 				            });
