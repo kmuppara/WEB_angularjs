@@ -1,0 +1,29 @@
+Databases:
+connect hr/hr1;
+
+
+connect / as sysdba;
+desc v$instance;
+create user prasad identified by prasad;
+grant connect, resource, create table, create sequence to prasad;
+
+connect prasad/prasad;
+
+create table robot(robotId number(3) constraint pk primary key, name varchar2(10), price number(4));
+commit;
+
+insert into robot values(1, 'robo1', 111);
+commit;
+
+{
+	"robotId":"5",
+	"name":"robo5",
+	"price":"555"
+	}
+
+
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:kmuppara/WEB_angularjs.git
+git push -u origin master
