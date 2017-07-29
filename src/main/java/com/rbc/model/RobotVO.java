@@ -1,17 +1,22 @@
-package com.rbc.model;
+package com.RBC.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+@Entity(name="ROBOT")
 @Component
 public class RobotVO {
 	
-	@JsonProperty
+	@Id
+	@Column(name="ROBOTID")
 	private int robotId;
-	@JsonProperty
+	@Column(name="NAME")
 	private String name;
-	@JsonProperty
+	@Column(name="PRICE")
 	private int price;
 	
 	public int getRobotId() {
@@ -31,11 +36,6 @@ public class RobotVO {
 	}
 	public void setPrice(int price) {
 		this.price = price;
-	}
-	
-	@Override
-	public String toString() {
-		return "RobotVO [robotId=" + robotId + ", name=" + name + ", price=" + price + "]";
 	}
 
 }

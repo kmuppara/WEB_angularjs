@@ -1,8 +1,10 @@
-package com.rbc.model;
+package com.RBC.model;
+
+import org.springframework.stereotype.Component;
 
 public class CustomErr {
 	
-	private String errorMsg;
+	String errorMsg;
 
 	public String getErrorMsg() {
 		return errorMsg;
